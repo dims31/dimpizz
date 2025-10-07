@@ -46,7 +46,10 @@ def create_pizza():
         huile_pct=huile_pct_input.value
     )
 
-with ui.card().classes('w-[500px]'):
+
+
+
+with ui.card().classes('w-[300px]'):
     qte_pate_input = ui.number(value=1000, label='Quantité de pâte (g)').classes('w-full')
     hydra_pct_input = ui.number(value=65, label="Pourcentage d'hydratation (%)").classes('w-full')
     duree_ferment_input = ui.number(value=24, label='Durée de fermentation (h)').classes('w-full')
@@ -54,7 +57,7 @@ with ui.card().classes('w-[500px]'):
     type_levure_input = ui.select(['fraiche', 'seche'], value="fraiche", label='Type de levure').classes('w-full')
     qte_sel_par_kg_input = ui.number(value=25, label='Quantité de sel par kg de farine (g)').classes('w-full')
     huile_pct_input = ui.number(value=2.5, step=0.5, label="Pourcentage d'huile (%)").classes('w-full')
-with ui.card().classes('w-[500px]'):
+with ui.card().classes('w-[300px]'):
     qte_farine_label = ui.label(text="Quantité de farine : 0.00 g")
     qte_eau_label = ui.label(text="Quantité d'eau : 0.00 g")
     qte_levure_label = ui.label(text="Quantité de levure : 0.00 g")
@@ -81,4 +84,4 @@ with ui.card().classes('w-[500px]'):
     # Initial update
     update_labels()
 
-ui.run()
+ui.run(favicon='🍕', title="Dim's Pizza Calculator")
