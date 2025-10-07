@@ -79,4 +79,4 @@ with ui.card().classes('w-[300px]'):
     # Initial update
     update_labels()
 
-ui.run(favicon='🍕', title="Dim's Pizza Calculator")
+ui.run(favicon='🍕', title="Dim's Pizza Calculator",port=8000)
