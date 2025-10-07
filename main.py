@@ -1,6 +1,4 @@
 from nicegui import ui
-from nicegui.events import ValueChangeEventArguments
-
 
 class Pate:
     def __init__(self, qte_pate, hydra_pct, duree_ferment, temp_ferment, type_levure, qte_sel_par_kg, huile_pct):
@@ -11,8 +9,22 @@ class Pate:
         self.type_levure = type_levure
         self.qte_sel_par_kg = qte_sel_par_kg
         self.huile_pct = huile_pct
+        self.qte_far = 0
+        self.qte_eau = 0
+        self.qte_levure = 0
+        self.qte_sel = 0
+        self.qte_huile = 0
         self.calc_quantite()
 
+    def levure_par_kg(self):
+        if self.type_levure == "fraiche":
+            ratio_levure = 1
+        elif self.type_levure == "seche":
+            ratio_levure = 0.33
+        else:
+            raise ValueError("type de levure inconnu")
+        CONST_LEVURE = 300
+        return ratio_levure * CONST_LEVURE / (self.temp_ferment * self.duree_ferment)
 
     def calc_quantite(self):
         coef_total = 1 + (self.hydra_pct / 100) + (self.qte_sel_par_kg + self.levure_par_kg()) / 1000
@@ -22,67 +34,51 @@ class Pate:
         self.qte_sel = self.qte_sel_par_kg * self.qte_far / 1000
         self.qte_huile = self.huile_pct * self.qte_far / 100
 
-    def levure_par_kg(self):
-        if self.type_levure == "fraiche":
-            ratio_levure = 1
-        elif self.type_levure == "seche":
-            ratio_levure = 0.33
-        else:
-            raise ValueError("type de levure inconnu")
 
-        CONST_LEVURE = 300
-        return ratio_levure * CONST_LEVURE / (self.temp_ferment * self.duree_ferment)
+def create_pizza():
+    return Pate(
+        qte_pate=qte_pate_input.value,
+        hydra_pct=hydra_pct_input.value,
+        duree_ferment=duree_ferment_input.value,
+        temp_ferment=temp_ferment_input.value,
+        type_levure=type_levure_input.value,
+        qte_sel_par_kg=qte_sel_par_kg_input.value,
+        huile_pct=huile_pct_input.value
+    )
 
+with ui.card().classes('w-[500px]'):
+    qte_pate_input = ui.number(value=1000, label='Quantité de pâte (g)').classes('w-full')
+    hydra_pct_input = ui.number(value=65, label="Pourcentage d'hydratation (%)").classes('w-full')
+    duree_ferment_input = ui.number(value=24, label='Durée de fermentation (h)').classes('w-full')
+    temp_ferment_input = ui.number(value=20, label='Température de fermentation (°C)').classes('w-full')
+    type_levure_input = ui.select(['fraiche', 'seche'], value="fraiche", label='Type de levure').classes('w-full')
+    qte_sel_par_kg_input = ui.number(value=25, label='Quantité de sel par kg de farine (g)').classes('w-full')
+    huile_pct_input = ui.number(value=2.5, step=0.5, label="Pourcentage d'huile (%)").classes('w-full')
+with ui.card().classes('w-[500px]'):
+    qte_farine_label = ui.label(text="Quantité de farine : 0.00 g")
+    qte_eau_label = ui.label(text="Quantité d'eau : 0.00 g")
+    qte_levure_label = ui.label(text="Quantité de levure : 0.00 g")
+    qte_sel_label = ui.label(text="Quantité de sel : 0.00 g")
+    qte_huile_label = ui.label(text="Quantité d'huile : 0.00 g")
 
-pizza = Pate(
-    qte_pate=100,
-    hydra_pct=65,
-    duree_ferment=24,
-    temp_ferment=20,
-    type_levure="fraiche",
-    qte_sel_par_kg=25,
-    huile_pct=2.5
-)
+    def update_labels():
+        pizza = create_pizza()
+        qte_farine_label.text = f"Quantité de farine : {pizza.qte_far:.2f} g"
+        qte_eau_label.text = f"Quantité d'eau : {pizza.qte_eau:.2f} g"
+        qte_levure_label.text = f"Quantité de levure : {pizza.qte_levure:.2f} g"
+        qte_sel_label.text = f"Quantité de sel : {pizza.qte_sel:.2f} g"
+        qte_huile_label.text = f"Quantité d'huile : {pizza.qte_huile:.2f} g"
 
+    # Relier chaque input à la mise à jour automatique
+    qte_pate_input.on('change', lambda e: update_labels())
+    hydra_pct_input.on('change', lambda e: update_labels())
+    duree_ferment_input.on('change', lambda e: update_labels())
+    temp_ferment_input.on('change', lambda e: update_labels())
+    type_levure_input.on('change', lambda e: update_labels())
+    qte_sel_par_kg_input.on('change', lambda e: update_labels())
+    huile_pct_input.on('change', lambda e: update_labels())
 
-qte_pate = ui.number(value=pizza.qte_pate, label='Quantité de pâte (g)')
-hydra_pct = ui.number(value=pizza.hydra_pct, label='Pourcentage d\'hydratation (%)')
-duree_ferment = ui.number(value=pizza.duree_ferment, label='Durée de fermentation (h)')
-temp_ferment = ui.number(value=pizza.temp_ferment, label='Température de fermentation (°C)')
-type_levure = ui.select(['fraiche', 'seche'], value=pizza.type_levure, label='Type de levure')
-qte_sel_par_kg = ui.number(value=pizza.qte_sel_par_kg, label='Quantité de sel par kg de farine (g)')
-huile_pct = ui.number(value=pizza.huile_pct, step=0.5, label='Pourcentage d\'huile (%)')
-
-qte_farine = ui.label(text=f"Quantité de farine : {pizza.qte_far:.2f} g")
-qte_eau = ui.label(text=f"Quantité d'eau : {pizza.qte_eau:.2f} g")
-qte_levure = ui.label(text=f"Quantité de levure : {pizza.qte_levure:.2f} g")
-qte_sel = ui.label(text=f"Quantité de sel : {pizza.qte_sel:.2f} g")
-qte_huile = ui.label(text=f"Quantité d'huile : {pizza.qte_huile:.2f} g")
-
-def update_values(e=None):
-    pizza.qte_pate = qte_pate.value
-    pizza.hydra_pct = hydra_pct.value
-    pizza.duree_ferment = duree_ferment.value
-    pizza.temp_ferment = temp_ferment.value
-    pizza.type_levure = type_levure.value
-    pizza.qte_sel_par_kg = qte_sel_par_kg.value
-    pizza.huile_pct = huile_pct.value
-    pizza.calc_quantite()
-
-    qte_farine.text = f"Quantité de farine : {pizza.qte_far:.2f} g"
-    qte_eau.text = f"Quantité d'eau : {pizza.qte_eau:.2f} g"
-    qte_levure.text = f"Quantité de levure : {pizza.qte_levure:.2f} g"
-    qte_sel.text = f"Quantité de sel : {pizza.qte_sel:.2f} g"
-    qte_huile.text = f"Quantité d'huile : {pizza.qte_huile:.2f} g"
-
-    # Recalculer à chaque changement de valeur
-qte_pate.on('change', update_values)
-hydra_pct.on('change', update_values)
-duree_ferment.on('change', update_values)
-temp_ferment.on('change', update_values)
-type_levure.on('change', update_values)
-qte_sel_par_kg.on('change', update_values)
-huile_pct.on('change', update_values)
-
+    # Initial update
+    update_labels()
 
 ui.run()
