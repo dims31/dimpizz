@@ -17,13 +17,15 @@ class Pate:
         self.calc_quantite()
 
     def levure_par_kg(self):
+
+        CONST_LEVURE = 300
+        
         if self.type_levure == "fraiche":
             ratio_levure = 1
         elif self.type_levure == "seche":
             ratio_levure = 0.33
         else:
             raise ValueError("type de levure inconnu")
-        CONST_LEVURE = 300
         return ratio_levure * CONST_LEVURE / (self.temp_ferment * self.duree_ferment)
 
     def calc_quantite(self):
