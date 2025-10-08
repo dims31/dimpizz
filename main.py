@@ -64,11 +64,14 @@ with ui.card().classes('w-[300px]'):
     nombre_patons = ui.select([1,2,3,4,5,6,7,8,9,10], value=4, label='Nombre de patons', with_input=True, on_change=lambda e: update_labels()).classes('w-full')
     poids_paton = ui.number(value=250, label='Poids par paton (g)', step=5, on_change=lambda e: update_labels()).classes('w-full')
     hydra_pct_input = ui.number(value=65, label="Pourcentage d'hydratation (%)",on_change=lambda e: update_labels()).classes('w-full')
+    ui.label("Fermentation température ambiante:")
     with ui.row():
-        duree_ferment_ta_input = ui.number(value=4, label='Durée de fermentation température ambiante (h)',on_change=lambda e: update_labels())#.classes('w-full')
-        temp_ferment_ta_input = ui.number(value=20, label='Température ambiante de fermentation (°C)',on_change=lambda e: update_labels())#.classes('w-full')
-    duree_ferment_tc_input = ui.number(value=24, label='Durée de fermentation température controlée (h)',on_change=lambda e: update_labels()).classes('w-full')
-    temp_ferment_tc_input = ui.number(value=6, label='Température controlée de fermentation (°C)',on_change=lambda e: update_labels()).classes('w-full')
+        duree_ferment_ta_input = ui.number(value=4, label='Durée (h)',on_change=lambda e: update_labels()).classes('w-[100px]')
+        temp_ferment_ta_input = ui.number(value=20, label='Température (°C)',on_change=lambda e: update_labels()).classes('w-[100px]')
+    ui.label("Fermentation température contrôlée:")
+    with ui.row():
+        duree_ferment_tc_input = ui.number(value=24, label='Durée (h)',on_change=lambda e: update_labels()).classes('w-[100px]')
+        temp_ferment_tc_input = ui.number(value=6, label='Température (°C)',on_change=lambda e: update_labels()).classes('w-[100px]')
     type_levure_input = ui.select(['fraiche', 'seche'], value="fraiche", label='Type de levure',on_change=lambda e: update_labels()).classes('w-full')
     qte_sel_par_kg_input = ui.number(value=25, label='Quantité de sel par kg de farine (g)',on_change=lambda e: update_labels()).classes('w-full')
     huile_pct_input = ui.number(value=2.5, step=0.5, label="Pourcentage d'huile (%)",on_change=lambda e: update_labels()).classes('w-full')
