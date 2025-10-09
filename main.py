@@ -1,11 +1,13 @@
 from nicegui import ui
 
 class Pate:
-    def __init__(self, qte_pate, hydra_pct, duree_ferment, temp_ferment, type_levure, qte_sel_par_kg, huile_pct):
+    def __init__(self, qte_pate, hydra_pct, temp_ferment_ta, temp_ferment_tc,duree_ferment_ta,duree_ferment_tc, type_levure, qte_sel_par_kg, huile_pct):
         self.qte_pate = qte_pate
         self.hydra_pct = hydra_pct
-        self.duree_ferment = duree_ferment
-        self.temp_ferment = temp_ferment
+        self.temp_ferment_ta = temp_ferment_ta
+        self.temp_ferment_tc = temp_ferment_tc
+        self.duree_ferment_ta = duree_ferment_ta
+        self.duree_ferment_tc = duree_ferment_tc
         self.type_levure = type_levure
         self.qte_sel_par_kg = qte_sel_par_kg
         self.huile_pct = huile_pct
@@ -16,8 +18,11 @@ class Pate:
         self.qte_huile = 0
         self.calc_quantite()
 
-    def levure_par_kg(self):
 
+    def temp_moyenne(self):
+        return (self.temp_ferment_ta * self.duree_ferment_ta + self.temp_ferment_tc * self.duree_ferment_tc) / (self.duree_ferment_ta + self.duree_ferment_tc)
+
+    def levure_par_kg(self):
         CONST_LEVURE = 300
         
         if self.type_levure == "fraiche":
@@ -26,8 +31,9 @@ class Pate:
             ratio_levure = 0.33
         else:
             raise ValueError("type de levure inconnu")
-        return ratio_levure * CONST_LEVURE / (self.temp_ferment * self.duree_ferment)
-
+        return ratio_levure * CONST_LEVURE / (self.temp_moyenne() * (self.duree_ferment_ta + self.duree_ferment_tc))
+    
+    
     def calc_quantite(self):
         coef_total = 1 + (self.hydra_pct / 100) + (self.qte_sel_par_kg + self.levure_par_kg()) / 1000
         self.qte_far = self.qte_pate / coef_total
@@ -41,16 +47,16 @@ def temp_moyenne(temp1,temp2,duree1,duree2):
     return (temp1*duree1 + temp2*duree2)/(duree1+duree2)
 
 
+
+
 def create_pizza():
     return Pate(
         qte_pate=nombre_patons.value * poids_paton.value,
         hydra_pct=hydra_pct_input.value,
-        duree_ferment=duree_ferment_tc_input.value + duree_ferment_ta_input.value,
-        temp_ferment=temp_moyenne(
-            temp_ferment_ta_input.value,
-            temp_ferment_tc_input.value,
-            duree_ferment_ta_input.value,
-            duree_ferment_tc_input.value),
+        temp_ferment_ta=temp_ferment_ta_input.value,
+        temp_ferment_tc=temp_ferment_tc_input.value,
+        duree_ferment_ta=duree_ferment_ta_input.value,
+        duree_ferment_tc=duree_ferment_tc_input.value,
         type_levure=type_levure_input.value,
         qte_sel_par_kg=qte_sel_par_kg_input.value,
         huile_pct=huile_pct_input.value
