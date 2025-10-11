@@ -1,7 +1,7 @@
 from nicegui import ui
 
 class Pate:
-    def __init__(self, qte_pate, hydra_pct, temp_ferment_ta, temp_ferment_tc,duree_ferment_ta,duree_ferment_tc, type_levure, qte_sel_par_kg, huile_pct):
+    def __init__(self, qte_pate, hydra_pct, temp_ferment_ta, temp_ferment_tc,duree_ferment_ta,duree_ferment_tc, type_levure, sel_pct, huile_pct):
         self.qte_pate = qte_pate
         self.hydra_pct = hydra_pct
         self.temp_ferment_ta = temp_ferment_ta
@@ -9,7 +9,7 @@ class Pate:
         self.duree_ferment_ta = duree_ferment_ta
         self.duree_ferment_tc = duree_ferment_tc
         self.type_levure = type_levure
-        self.qte_sel_par_kg = qte_sel_par_kg
+        self.sel_pct = sel_pct
         self.huile_pct = huile_pct
         self.qte_far = 0
         self.qte_eau = 0
@@ -35,11 +35,11 @@ class Pate:
     
     
     def calc_quantite(self):
-        coef_total = 1 + (self.hydra_pct / 100) + (self.qte_sel_par_kg + self.levure_par_kg()) / 1000
+        coef_total = 1 + (self.hydra_pct / 100) + (self.sel_pct * 10 + self.levure_par_kg()) / 1000
         self.qte_far = self.qte_pate / coef_total
         self.qte_eau = (self.hydra_pct - self.huile_pct) * self.qte_far / 100
         self.qte_levure = self.levure_par_kg() * self.qte_far / 1000
-        self.qte_sel = self.qte_sel_par_kg * self.qte_far / 1000
+        self.qte_sel = self.sel_pct * self.qte_far / 100
         self.qte_huile = self.huile_pct * self.qte_far / 100
 
 
@@ -58,7 +58,7 @@ def create_pizza():
         duree_ferment_ta=duree_ferment_ta_input.value,
         duree_ferment_tc=duree_ferment_tc_input.value,
         type_levure=type_levure_input.value,
-        qte_sel_par_kg=qte_sel_par_kg_input.value,
+        sel_pct=sel_pct_input.value,
         huile_pct=huile_pct_input.value
     )
 
@@ -71,7 +71,7 @@ nombre_patons = ui.select([1,2,3,4,5,6,7,8,9,10], value=4, label='Nombre de pato
 poids_paton = ui.number(value=250, label='Poids par paton (g)', step=5, on_change=lambda e: update_labels()).classes('w-full')
 hydra_pct_input = ui.number(value=65, label="Pourcentage d'hydratation (%)",on_change=lambda e: update_labels()).classes('w-full')
 huile_pct_input = ui.number(value=2.5, step=0.5, label="Pourcentage d'huile (%)",on_change=lambda e: update_labels()).classes('w-full')
-qte_sel_par_kg_input = ui.number(value=25, label='Quantité de sel par kg de farine (g)',on_change=lambda e: update_labels()).classes('w-full')
+sel_pct_input = ui.number(value=2.5, step=0.5, label="Pourcentage de sel (%)",on_change=lambda e: update_labels()).classes('w-full')
 type_levure_input = ui.select(['fraiche', 'seche'], value="fraiche", label='Type de levure',on_change=lambda e: update_labels()).classes('w-full')
 
 ui.label("Fermentation température ambiante:")
