@@ -28,9 +28,9 @@ def page():
         def levure_par_kg(self):
             CONST_LEVURE = 450 # constante pour le calcul de la levure
             
-            if self.type_levure == "fraiche":
+            if self.type_levure == "fraîche":
                 ratio_levure = 1
-            elif self.type_levure == "seche":
+            elif self.type_levure == "sèche":
                 ratio_levure = 0.33
             else:
                 raise ValueError("type de levure inconnu")
@@ -67,7 +67,7 @@ def page():
     hydra_pct_input = ui.number(value=65, label="Pourcentage d'hydratation (%)",on_change=lambda e: update_labels()).classes('w-full')
     huile_pct_input = ui.number(value=2.5, step=0.5, label="Pourcentage d'huile (%)",on_change=lambda e: update_labels()).classes('w-full')
     sel_pct_input = ui.number(value=2.5, step=0.5, label="Pourcentage de sel (%)",on_change=lambda e: update_labels()).classes('w-full')
-    type_levure_input = ui.select(['fraiche', 'seche'], value="fraiche", label='Type de levure',on_change=lambda e: update_labels()).classes('w-full')
+    type_levure_input = ui.select(['fraîche', 'sèche'], value="fraîche", label='Type de levure',on_change=lambda e: update_labels()).classes('w-full')
 
     ui.label("Fermentation température ambiante:")
     with ui.row():
@@ -78,7 +78,7 @@ def page():
         duree_ferment_tc_input = ui.number(value=24, label='Durée (h)',on_change=lambda e: update_labels()).classes('w-[100px]')
         temp_ferment_tc_input = ui.number(value=4, label='Température (°C)',on_change=lambda e: update_labels()).classes('w-[100px]')
 
-    qte_pate_label = ui.label(text="Quantité de pâte : 0.00 g").classes('text-lg font-mono w-full text-center mt-4 bg-[#FDF7E9] p-1 rounded')
+    qte_pate_label = ui.label(text="").classes('w-full text-center mt-4 bg-[#FDF7E9] p-1 rounded')
     with ui.element('div').classes('columns-3 w-full gap-2 '):
             tailwind = f'mb-2 p-2 h-50px] break-inside-avoid bg-[#FDF7E9]'
             with ui.card().classes(tailwind):
@@ -94,7 +94,7 @@ def page():
 
     def update_labels():
         pizza = create_pizza()
-        qte_pate_label.text = f"Pour {pizza.qte_pate:.0f} g de pate :"
+        qte_pate_label.text = f"Pour {pizza.qte_pate:.0f} g de pâte :"
         qte_farine_label.text = f"Farine : {pizza.qte_far:.0f} g"
         qte_eau_label.text = f"Eau : {pizza.qte_eau:.0f} g"
         qte_levure_label.text = f"Levure : {pizza.qte_levure:.2f} g"
