@@ -26,7 +26,7 @@ def page():
             return (self.temp_ferment_ta * self.duree_ferment_ta + self.temp_ferment_tc * self.duree_ferment_tc) / (self.duree_ferment_ta + self.duree_ferment_tc)
 
         def levure_par_kg(self):
-            CONST_LEVURE = 450 # constante pour le calcul de la levure
+            CONST_LEVURE = 380 # constante pour le calcul de la levure
             
             if self.type_levure == "fraîche":
                 ratio_levure = 1
@@ -63,8 +63,8 @@ def page():
     header()
 
     nombre_patons = ui.select([1,2,3,4,5,6,7,8,9,10], value=4, label='Nombre de patons', with_input=True, on_change=lambda e: update_labels()).classes('w-full')
-    poids_paton = ui.number(value=250, label='Poids par paton (g)', step=5, on_change=lambda e: update_labels()).classes('w-full')
-    hydra_pct_input = ui.number(value=65, label="Pourcentage d'hydratation (%)",on_change=lambda e: update_labels()).classes('w-full')
+    poids_paton = ui.number(value=260, label='Poids par paton (g)', step=5, on_change=lambda e: update_labels()).classes('w-full')
+    hydra_pct_input = ui.number(value=64, label="Pourcentage d'hydratation total (%)",on_change=lambda e: update_labels()).classes('w-full')
     huile_pct_input = ui.number(value=2.5, step=0.5, label="Pourcentage d'huile (%)",on_change=lambda e: update_labels()).classes('w-full')
     sel_pct_input = ui.number(value=2.5, step=0.5, label="Pourcentage de sel (%)",on_change=lambda e: update_labels()).classes('w-full')
     type_levure_input = ui.select(['fraîche', 'sèche'], value="fraîche", label='Type de levure',on_change=lambda e: update_labels()).classes('w-full')
