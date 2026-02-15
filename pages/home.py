@@ -26,7 +26,7 @@ def page():
             return (self.temp_ferment_ta * self.duree_ferment_ta + self.temp_ferment_tc * self.duree_ferment_tc) / (self.duree_ferment_ta + self.duree_ferment_tc)
 
         def levure_par_kg(self):
-            CONST_LEVURE = 380 # constante pour le calcul de la levure
+            CONST_LEVURE = 450 # constante pour le calcul de la levure
             
             if self.type_levure == "fraîche":
                 ratio_levure = 1
