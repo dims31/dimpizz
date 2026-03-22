@@ -44,6 +44,10 @@ def calculate_pizza_dough(
 def index():
     return render_template("index.html")
 
+@app.route("/recipes")
+def recipes():
+    return render_template("recipes.html")
+
 @app.route("/calculate", methods=["POST"])
 def calculate():
     data = request.get_json()

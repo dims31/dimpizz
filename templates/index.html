@@ -5,11 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dim Pizza Calculator</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
 </head>
 <body class="grey lighten-4">
+  <!-- Navbar avec menu hamburger -->
+  <nav class="blue darken-2">
+    <div class="nav-wrapper">
+      <a href="/" class="brand-logo center">🍕 Dim Pizza</a>
+      <a href="#" data-target="mobile-menu" class="sidenav-trigger">
+        <i class="fas fa-bars"></i>
+      </a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="/">Calculateur</a></li>
+        <li><a href="/recipes">Recettes</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Menu mobile -->
+  <ul class="sidenav" id="mobile-menu">
+    <li><a href="/">Calculateur</a></li>
+    <li><a href="/recipes">Recettes</a></li>
+  </ul>
+
   <div class="container">
-    <h3 class="center blue-text text-darken-2">Dim Pizza Calculator</h3>
+    <h3 class="center blue-text text-darken-2">Calculateur de Pâte à Pizza</h3>
 
     <div class="card-panel">
       <form id="calc-form">
@@ -205,6 +226,14 @@
         alert("Erreur réseau");
       }
     });
+
+    // Initialiser le sidenav
+    const sidenav = document.querySelectorAll('.sidenav');
+    M.Sidenav.init(sidenav);
+    
+    const tabs = document.querySelectorAll('.tabs');
+    M.Tabs.init(tabs);
   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>
