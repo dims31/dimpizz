@@ -30,7 +30,7 @@
   </ul>
 
   <div class="container">
-    <h3 class="center blue-text text-darken-2">Calculateur de Pâte à Pizza</h3>
+    <h3 class="center blue-text text-darken-2">Calculateur</h3>
 
     <div class="card-panel">
       <form id="calc-form">
@@ -160,7 +160,7 @@
           </h6>
           <ul class="protocol-list">
             <li><strong>Faire</strong> des boules de pâte de la taille désirée (250g pour une pizza de 30cm).</li>
-            <li><strong>Laisser</strong> reposer les boules de pâte à température ambiante ou température contrôlée (4°C) selon le protocole choisi.</li>
+            <li><strong>Laisser</strong> reposer les boules de pâte au frigo selon la durée de fermentation choisie</li>
           </ul>
         </div>
 
@@ -171,14 +171,22 @@
           </h6>
           <ul class="protocol-list">
             <li><strong>Préchauffer</strong> le four à 400°C.</li>
-            <li><strong>Cuire</strong> les pizzas pendant 3 minutes ou jusqu'à ce qu'elles soient dorées.</li>
+            <li><strong>Cuire</strong> les pizzas pendant 2 minutes ou jusqu'à ce qu'elles soient dorées.</li>
           </ul>
         </div>
       </div>
     </div>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script>
+    // Initialiser le sidenav
+    const sidenav = document.querySelectorAll('.sidenav');
+    M.Sidenav.init(sidenav);
+    
+    const tabs = document.querySelectorAll('.tabs');
+    M.Tabs.init(tabs);
+
     // Fonction pour afficher un texte dans un élément
     const setText = (id, value) => {
       document.getElementById(id).textContent = value;
@@ -226,14 +234,6 @@
         alert("Erreur réseau");
       }
     });
-
-    // Initialiser le sidenav
-    const sidenav = document.querySelectorAll('.sidenav');
-    M.Sidenav.init(sidenav);
-    
-    const tabs = document.querySelectorAll('.tabs');
-    M.Tabs.init(tabs);
   </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>
