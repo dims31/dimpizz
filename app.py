@@ -33,10 +33,10 @@ def calculate_pizza_dough(
     yeast = yeast_per_kg * flour / 1000
 
     return {
-        "flour": round(flour, 1),
-        "water": round(water, 1),
-        "salt": round(salt, 1),
-        "olive": round(olive, 1),
+        "flour": round(flour, 0),
+        "water": round(water, 0),
+        "salt": round(salt, 0),
+        "olive": round(olive, 0),
         "yeast": round(yeast, 2),
     }
 

@@ -70,7 +70,7 @@
     <!-- Résultat ingrédients -->
     <div id="ingredient-result" class="card result-card">
       <div class="card-content">
-        <h5 class="ingredients-title">Ingrédients (g)</h5>
+        <h5 class="ingredients-title">Ingrédients</h5>
         <div class="ingredients-grid">
           <div class="ingredient-item">
             <div class="ingredient-icon">🌾</div>
@@ -93,41 +93,66 @@
             <div class="ingredient-value"><span id="olive">0</span> g</div>
           </div>
           <div class="ingredient-item">
-            <div class="ingredient-icon">🍞</div>
+            <div class="ingredient-icon">🍚</div>
             <div class="ingredient-label">Levure</div>
-            <div class="ingredient-value"><span id="yeast">0</span> g/kg</div>
+            <div class="ingredient-value"><span id="yeast">0</span> g</div>
           </div>
           
         </div>
       </div>
     </div>
 
-    <!-- Tableau fermentation -->
-    <div id="ferment-result" class="card ferment-table">
+    <!-- Protocole -->
+    <div class="card result-card">
       <div class="card-content">
-        <h5>Temps de fermentation suggérés</h5>
-        <table class="bordered striped">
-          <thead>
-            <tr>
-              <th>Mode</th>
-              <th>Température</th>
-              <th>Durée</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Fermentation à température ambiante</td>
-              <td id="ferment-warm-temp">20 °C</td>
-              <td id="ferment-warm-duration">2-4 h</td>
-            </tr>
-            <tr>
-              <td>Fermentation à température contrôlée (frigo)</td>
-              <td id="ferment-cold-temp">4–6 °C</td>
-              <td id="ferment-cold-duration">12–24 h</td>
-            </tr>
+        <h5 class="protocol-title">Protocole</h5>
+        
+        <!-- Pétrissage -->
+        <div class="protocol-section">
+          <h6 class="protocol-step-title">
+            <span class="protocol-badge">1</span> Pétrissage
+          </h6>
+          <ul class="protocol-list">
+            <li><strong>Ajouter</strong> dans l'eau à température ambiante la levure et le sel.</li>
+            <li><strong>Mélanger</strong> jusqu'à dissolution complète.</li>
+            <li><strong>Ajouter</strong> la farine et l'huile.</li>
+            <li><strong>Mélanger</strong> jusqu'à obtenir une pâte homogène.</li>
+            <li><strong>Pétrisser</strong> la pâte pendant 10 minutes.</li>
+          </ul>
+        </div>
 
-          </tbody>
-        </table>
+        <!-- Pointage -->
+        <div class="protocol-section">
+          <h6 class="protocol-step-title">
+            <span class="protocol-badge">2</span> Pointage
+          </h6>
+          <ul class="protocol-list">
+            <li><strong>Laisser</strong> la pâte reposer pendant 3 heures à température ambiante dans un saladier couvert d'un film étirable.</li>
+            <li><strong>Faire</strong> des rabats si la pâte n'a pas assez de résistance.</li>
+          </ul>
+        </div>
+
+        <!-- Boulage -->
+        <div class="protocol-section">
+          <h6 class="protocol-step-title">
+            <span class="protocol-badge">3</span> Boulage
+          </h6>
+          <ul class="protocol-list">
+            <li><strong>Faire</strong> des boules de pâte de la taille désirée (250g pour une pizza de 30cm).</li>
+            <li><strong>Laisser</strong> reposer les boules de pâte à température ambiante ou température contrôlée (4°C) selon le protocole choisi.</li>
+          </ul>
+        </div>
+
+        <!-- Cuisson -->
+        <div class="protocol-section">
+          <h6 class="protocol-step-title">
+            <span class="protocol-badge">4</span> Cuisson
+          </h6>
+          <ul class="protocol-list">
+            <li><strong>Préchauffer</strong> le four à 400°C.</li>
+            <li><strong>Cuire</strong> les pizzas pendant 3 minutes ou jusqu'à ce qu'elles soient dorées.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

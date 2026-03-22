@@ -52,3 +52,63 @@
   font-weight: bold;
   color: #1565c0;
 }
+
+/* Styles pour le Protocole */
+.protocol-title {
+  text-align: center;
+  color: #1565c0;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.protocol-section {
+  margin-bottom: 25px;
+  padding: 15px;
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border-radius: 8px;
+  border-left: 4px solid #1565c0;
+}
+
+.protocol-step-title {
+  color: #1565c0;
+  font-weight: 600;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.protocol-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: #1565c0;
+  color: white;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.protocol-list {
+  margin: 0;
+  padding-left: 20px;
+  list-style: none;
+}
+
+.protocol-list li {
+  margin-bottom: 10px;
+  color: #424242;
+  line-height: 1.6;
+  position: relative;
+  padding-left: 25px;
+}
+
+.protocol-list li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #1565c0;
+  font-weight: bold;
+}
