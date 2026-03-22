@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dim Pizza Calculator</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body class="grey lighten-4">
+  <div class="container">
+    <h3 class="center blue-text text-darken-2">Dim Pizza Calculator</h3>
+
+    <div class="card-panel">
+      <form id="calc-form">
+        <div class="row">
+          <div class="col s12 m6">
+            <label for="num_balls">Nombre de pâtons</label>
+            <input type="number" id="num_balls" value="4" class="validate" />
+          </div>
+
+          <div class="col s12 m6">
+            <label for="ball_weight">Poids par pâton (g)</label>
+            <input type="number" id="ball_weight" value="260" class="validate" />
+          </div>
+
+          <div class="col s12 m4">
+            <label for="hydration">Hydratation (%)</label>
+            <input type="number" id="hydration" value="65" step="0.1" class="validate" />
+          </div>
+
+          <div class="col s12 m4">
+            <label for="salt_percent">Sel (%)</label>
+            <input type="number" id="salt_percent" value="2.5" step="0.1" class="validate" />
+          </div>
+
+          <div class="col s12 m4">
+            <label for="olive_percent">Huile (%)</label>
+            <input type="number" id="olive_percent" value="2.5" step="0.1" class="validate" />
+          </div>
+
+          <div class="col s12 m6">
+            <label for="fermentation_duration">Durée de fermentation (h)</label>
+            <input type="number" id="fermentation_duration" value="24" step="1" class="validate" />
+          </div>
+
+          <div class="col s12 m6">
+            <label>Type de levure</label>
+            <p>
+              <label>
+                <input type="radio" name="yeast_type" value="fresh" checked />
+                <span>Fraîche</span>
+              </label>
+              <label>
+                <input type="radio" name="yeast_type" value="dry" />
+                <span>Sèche</span>
+              </label>
+            </p>
+          </div>
+
+          <div class="col s12">
+            <button class="btn waves-effect waves-light blue" type="submit">
+              calculer
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Résultat ingrédients -->
+    <div id="ingredient-result" class="card result-card">
+      <div class="card-content">
+        <h5 class="ingredients-title">Ingrédients (g)</h5>
+        <div class="ingredients-grid">
+          <div class="ingredient-item">
+            <div class="ingredient-icon">🌾</div>
+            <div class="ingredient-label">Farine</div>
+            <div class="ingredient-value"><span id="flour">0</span> g</div>
+          </div>
+          <div class="ingredient-item">
+            <div class="ingredient-icon">💧</div>
+            <div class="ingredient-label">Eau</div>
+            <div class="ingredient-value"><span id="water">0</span> g</div>
+          </div>
+          <div class="ingredient-item">
+            <div class="ingredient-icon">🧂</div>
+            <div class="ingredient-label">Sel</div>
+            <div class="ingredient-value"><span id="salt">0</span> g</div>
+          </div>
+          <div class="ingredient-item">
+            <div class="ingredient-icon">🫒</div>
+            <div class="ingredient-label">Huile</div>
+            <div class="ingredient-value"><span id="olive">0</span> g</div>
+          </div>
+          <div class="ingredient-item">
+            <div class="ingredient-icon">🍞</div>
+            <div class="ingredient-label">Levure</div>
+            <div class="ingredient-value"><span id="yeast">0</span> g/kg</div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- Tableau fermentation -->
+    <div id="ferment-result" class="card ferment-table">
+      <div class="card-content">
+        <h5>Temps de fermentation suggérés</h5>
+        <table class="bordered striped">
+          <thead>
+            <tr>
+              <th>Mode</th>
+              <th>Température</th>
+              <th>Durée</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Fermentation à température ambiante</td>
+              <td id="ferment-warm-temp">20 °C</td>
+              <td id="ferment-warm-duration">2-4 h</td>
+            </tr>
+            <tr>
+              <td>Fermentation à température contrôlée (frigo)</td>
+              <td id="ferment-cold-temp">4–6 °C</td>
+              <td id="ferment-cold-duration">12–24 h</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Fonction pour afficher un texte dans un élément
+    const setText = (id, value) => {
+      document.getElementById(id).textContent = value;
+    };
+
+    // Lorsque le formulaire est soumis
+    document.getElementById("calc-form").addEventListener("submit", async (e) => {
+      e.preventDefault(); // Empêcher le rechargement de la page
+
+      // Récupérer les valeurs du formulaire
+      const data = {
+        num_balls: document.getElementById("num_balls").value || 4,
+        ball_weight: document.getElementById("ball_weight").value || 260,
+        hydration: document.getElementById("hydration").value || 65,
+        salt_percent: document.getElementById("salt_percent").value || 2.5,
+        olive_percent: document.getElementById("olive_percent").value || 2.5,
+        fermentation_duration: document.getElementById("fermentation_duration").value || 24,
+        yeast_type: document.querySelector("input[name='yeast_type']:checked").value || "fresh",
+      };
+
+      try {
+        // Envoyer les données au serveur
+        const res = await fetch("/calculate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+
+        const result = await res.json();
+
+        if (result.success) {
+          // Afficher les résultats
+          document.getElementById("ingredient-result").style.display = "block";
+          setText("flour", result.dough.flour);
+          setText("water", result.dough.water);
+          setText("salt", result.dough.salt);
+          setText("olive", result.dough.olive);
+          setText("yeast", result.dough.yeast);
+          setText("num_balls", result.num_balls);
+          setText("ball_weight", result.ball_weight);
+        } else {
+          alert("Erreur : " + result.error);
+        }
+      } catch (err) {
+        alert("Erreur réseau");
+      }
+    });
+  </script>
+</body>
+</html>

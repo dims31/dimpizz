@@ -1,0 +1,54 @@
+.container { margin-top: 40px; }
+.result-card { margin-top: 20px; }
+.result-item { font-size: 15px; }
+.ferment-table { margin-top: 20px; }
+#ingredient-result, #ferment-result { display: none; }
+
+.ingredients-title {
+  text-align: center;
+  color: #1565c0;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.ingredients-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.ingredient-item {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(21, 101, 192, 0.15);
+  transition: all 0.3s ease;
+  border-left: 4px solid #1565c0;
+}
+
+.ingredient-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(21, 101, 192, 0.25);
+}
+
+.ingredient-icon {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.ingredient-label {
+  font-size: 12px;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.ingredient-value {
+  font-size: 18px;
+  font-weight: bold;
+  color: #1565c0;
+}
