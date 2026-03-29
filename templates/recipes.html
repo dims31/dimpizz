@@ -6,13 +6,12 @@
   <title>Recettes - Dim Pizza</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
 </head>
 <body class="grey lighten-4">
-  <!-- Navbar avec menu hamburger -->
-  <nav class="blue darken-2">
+
+  <nav class="green darken-2">
     <div class="nav-wrapper">
-      <a href="/" class="brand-logo center">🍕 Dim Pizza</a>
+      <a href="/" class="brand-logo center">🍕 Dim Pizza Calculator</a>
       <a href="#" data-target="mobile-menu" class="sidenav-trigger">
         <i class="fas fa-bars"></i>
       </a>
@@ -29,56 +28,50 @@
     <li><a href="/recipes">Recettes</a></li>
   </ul>
 
-  <div class="container">
-    <h3 class="center blue-text text-darken-2">Recettes</h3>
+  <ul class="sidenav green lighten-5" id="mobile-menu">
+    <li><a href="/" class="green-text text-darken-3">Calculateur</a></li>
+    <li><a href="/recipes" class="green-text text-darken-3">Recettes</a></li>
+  </ul>
 
-    <!-- Pizza Parma -->
-    <div class="card recipe-card">
-      <div class="card-content">
-        <span class="card-title">
+  <div class="container section">
+    <h3 class="center green-text text-darken-2">Recettes</h3>
+
+    <ul class="collection with-header z-depth-1">
+      <li class="collection-header green lighten-5">
+        <h5 class="green-text text-darken-3">
           <i class="fas fa-pizza-slice"></i> Parma
-        </span>
-        <div class="recipe-base">
-          <span class="base-badge">🍅 Base Tomate</span>
+        </h5>
+        <div class="section" style="padding-top: 8px; padding-bottom: 0;">
+          <span class="chip green lighten-4 green-text text-darken-4">🍅 Base Tomate</span>
         </div>
-        <div class="recipe-ingredients">
-          <h6 class="recipe-subtitle">Ingrédients</h6>
-          <ul class="recipe-list">
-            <li>Mozarella</li>
-            <li>Jambon de parme (après cuisson)</li>
-            <li>Roquette (après cuisson)</li>
-            <li>Copeaux de Parmesan (après cuisson)</li>
-            <li>Huile d'olive extra vierge (après cuisson)</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+      </li>
+      <li class="collection-item">Mozzarella</li>
+      <li class="collection-item">Jambon de Parme (après cuisson)</li>
+      <li class="collection-item">Roquette (après cuisson)</li>
+      <li class="collection-item">Copeaux de parmesan (après cuisson)</li>
+      <li class="collection-item">Huile d'olive extra vierge (après cuisson)</li>
+    </ul>
 
-    <!-- Pizza Piquante -->
-    <div class="card recipe-card">
-      <div class="card-content">
-        <span class="card-title">
+    <ul class="collection with-header z-depth-1">
+      <li class="collection-header green lighten-5">
+        <h5 class="green-text text-darken-3">
           <i class="fas fa-pizza-slice"></i> Piquante
-        </span>
-        <div class="recipe-base">
-          <span class="base-badge">🍶 Base Crème</span>
+        </h5>
+        <div class="section" style="padding-top: 8px; padding-bottom: 0;">
+          <span class="chip green lighten-4 green-text text-darken-4">🍶 Base Crème</span>
         </div>
-        <div class="recipe-ingredients">
-          <h6 class="recipe-subtitle">Ingrédients</h6>
-          <ul class="recipe-list">
-            <li>Mozzarella</li>
-            <li>Chorizo piquant</li>
-            <li>Gorgonzola</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+      </li>
+      <li class="collection-item">Mozzarella</li>
+      <li class="collection-item">Chorizo piquant</li>
+      <li class="collection-item">Gorgonzola</li>
+    </ul>
+  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script>
     const sidenav = document.querySelectorAll('.sidenav');
     M.Sidenav.init(sidenav);
-    
+
     const tabs = document.querySelectorAll('.tabs');
     M.Tabs.init(tabs);
   </script>

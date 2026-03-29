@@ -6,13 +6,13 @@
   <title>Dim Pizza Calculator</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+
 </head>
 <body class="grey lighten-4">
-  <!-- Navbar avec menu hamburger -->
-  <nav class="blue darken-2">
+
+  <nav class="green darken-2">
     <div class="nav-wrapper">
-      <a href="/" class="brand-logo center">🍕 Dim Pizza</a>
+      <a href="/" class="brand-logo center">🍕 Dim Pizza Calculator</a>
       <a href="#" data-target="mobile-menu" class="sidenav-trigger">
         <i class="fas fa-bars"></i>
       </a>
@@ -30,7 +30,7 @@
   </ul>
 
   <div class="container">
-    <h3 class="center blue-text text-darken-2">Calculateur</h3>
+    <h3 class="center green-text text-darken-2">Calculateur</h3>
 
     <div class="card-panel">
       <form id="calc-form">
@@ -60,9 +60,13 @@
             <input type="number" id="olive_percent" value="2.5" step="0.1" class="validate" />
           </div>
 
-          <div class="col s12 m6">
-            <label for="fermentation_duration">Durée de fermentation (h)</label>
-            <input type="number" id="fermentation_duration" value="24" step="1" class="validate" />
+          <div class="input-field col s12 m6">
+            <select id="fermentation_duration">
+              <option value="12">12 heures</option>
+              <option value="24" selected>24 heures</option>
+              <option value="48">48 heures</option>
+            </select>
+            <label for="fermentation_duration">Durée de fermentation</label>
           </div>
 
           <div class="col s12 m6">
@@ -80,7 +84,7 @@
           </div>
 
           <div class="col s12">
-            <button class="btn waves-effect waves-light blue" type="submit">
+            <button class="btn waves-effect waves-light green darken-2" type="submit">
               calculer
             </button>
           </div>
@@ -88,94 +92,117 @@
       </form>
     </div>
 
-    <!-- Résultat ingrédients -->
-    <div id="ingredient-result" class="card result-card">
-      <div class="card-content">
-        <h5 class="ingredients-title">Ingrédients</h5>
-        <div class="ingredients-grid">
-          <div class="ingredient-item">
-            <div class="ingredient-icon">🌾</div>
-            <div class="ingredient-label">Farine</div>
-            <div class="ingredient-value"><span id="flour">0</span> g</div>
+<!-- Résultat ingrédients -->
+<div id="ingredient-result" class="card z-depth-1">
+  <div class="card-content">
+    <h5 class="center-align green-text text-darken-3">Ingrédients</h5>
+
+    <div class="row" style="margin-bottom: 0;">
+      <div class="col s12 m6 l4 xl2">
+        <div class="card-panel green lighten-5 center-align z-depth-1">
+          <div class="green-text text-darken-3 flow-text">🌾</div>
+          <div class="grey-text text-darken-1">FARINE</div>
+          <div class="green-text text-darken-3">
+            <strong><span id="flour">0</span> g</strong>
           </div>
-          <div class="ingredient-item">
-            <div class="ingredient-icon">💧</div>
-            <div class="ingredient-label">Eau</div>
-            <div class="ingredient-value"><span id="water">0</span> g</div>
+        </div>
+      </div>
+
+      <div class="col s12 m6 l4 xl2">
+        <div class="card-panel green lighten-5 center-align z-depth-1">
+          <div class="green-text text-darken-3 flow-text">💧</div>
+          <div class="grey-text text-darken-1">EAU</div>
+          <div class="green-text text-darken-3">
+            <strong><span id="water">0</span> g</strong>
           </div>
-          <div class="ingredient-item">
-            <div class="ingredient-icon">🧂</div>
-            <div class="ingredient-label">Sel</div>
-            <div class="ingredient-value"><span id="salt">0</span> g</div>
+        </div>
+      </div>
+
+      <div class="col s12 m6 l4 xl2">
+        <div class="card-panel green lighten-5 center-align z-depth-1">
+          <div class="green-text text-darken-3 flow-text">🧂</div>
+          <div class="grey-text text-darken-1">SEL</div>
+          <div class="green-text text-darken-3">
+            <strong><span id="salt">0</span> g</strong>
           </div>
-          <div class="ingredient-item">
-            <div class="ingredient-icon">🫒</div>
-            <div class="ingredient-label">Huile</div>
-            <div class="ingredient-value"><span id="olive">0</span> g</div>
+        </div>
+      </div>
+
+      <div class="col s12 m6 l4 xl2">
+        <div class="card-panel green lighten-5 center-align z-depth-1">
+          <div class="green-text text-darken-3 flow-text">🫒</div>
+          <div class="grey-text text-darken-1">HUILE</div>
+          <div class="green-text text-darken-3">
+            <strong><span id="olive">0</span> g</strong>
           </div>
-          <div class="ingredient-item">
-            <div class="ingredient-icon">🍚</div>
-            <div class="ingredient-label">Levure</div>
-            <div class="ingredient-value"><span id="yeast">0</span> g</div>
+        </div>
+      </div>
+
+      <div class="col s12 m6 l4 xl2">
+        <div class="card-panel green lighten-5 center-align z-depth-1">
+          <div class="green-text text-darken-3 flow-text">🍚</div>
+          <div class="grey-text text-darken-1">LEVURE</div>
+          <div class="green-text text-darken-3">
+            <strong><span id="yeast">0</span> g</strong>
           </div>
-          
         </div>
       </div>
     </div>
+  </div>
+</div>
 
-    <!-- Protocole -->
-    <div class="card result-card">
-      <div class="card-content">
-        <h5 class="protocol-title">Protocole</h5>
-        
-        <!-- Pétrissage -->
-        <div class="protocol-section">
-          <h6 class="protocol-step-title">
-            <span class="protocol-badge">1</span> Pétrissage
-          </h6>
-          <ul class="protocol-list">
-            <li><strong>Ajouter</strong> dans l'eau à température ambiante la levure et le sel.</li>
-            <li><strong>Mélanger</strong> jusqu'à dissolution complète.</li>
-            <li><strong>Ajouter</strong> la farine et l'huile.</li>
-            <li><strong>Mélanger</strong> jusqu'à obtenir une pâte homogène.</li>
-            <li><strong>Pétrisser</strong> la pâte pendant 10 minutes.</li>
-          </ul>
-        </div>
+<div class="card z-depth-2">
+  <div class="card-content">
+    <span class="card-title center-align green-text text-darken-3">Protocole</span>
 
-        <!-- Pointage -->
-        <div class="protocol-section">
-          <h6 class="protocol-step-title">
-            <span class="protocol-badge">2</span> Pointage
-          </h6>
-          <ul class="protocol-list">
-            <li><strong>Laisser</strong> la pâte reposer pendant 3 heures à température ambiante dans un saladier couvert d'un film étirable.</li>
-            <li><strong>Faire</strong> des rabats si la pâte n'a pas assez de résistance.</li>
-          </ul>
-        </div>
+    <ul class="collection with-header z-depth-1">
+      <li class="collection-header green lighten-5">
+        <h6 class="green-text text-darken-3">
+          <span class="new badge green" data-badge-caption="">1</span>
+          Pétrissage
+        </h6>
+      </li>
+      <li class="collection-item"><strong>Ajouter</strong> dans l'eau à température ambiante la levure et le sel.</li>
+      <li class="collection-item"><strong>Mélanger</strong> jusqu'à dissolution complète.</li>
+      <li class="collection-item"><strong>Ajouter</strong> la farine et l'huile.</li>
+      <li class="collection-item"><strong>Mélanger</strong> jusqu'à obtenir une pâte homogène.</li>
+      <li class="collection-item"><strong>Pétrisser</strong> la pâte pendant 10 minutes.</li>
+    </ul>
 
-        <!-- Boulage -->
-        <div class="protocol-section">
-          <h6 class="protocol-step-title">
-            <span class="protocol-badge">3</span> Boulage
-          </h6>
-          <ul class="protocol-list">
-            <li><strong>Faire</strong> des boules de pâte de la taille désirée (250g pour une pizza de 30cm).</li>
-            <li><strong>Laisser</strong> reposer les boules de pâte au frigo selon la durée de fermentation choisie</li>
-          </ul>
-        </div>
+    <ul class="collection with-header z-depth-1">
+      <li class="collection-header green lighten-5">
+        <h6 class="green-text text-darken-3">
+          <span class="new badge green" data-badge-caption="">2</span>
+          Pointage
+        </h6>
+      </li>
+      <li class="collection-item"><strong>Laisser</strong> la pâte reposer pendant 3 heures à température ambiante dans un saladier couvert d'un film étirable.</li>
+      <li class="collection-item"><strong>Faire</strong> des rabats si la pâte n'a pas assez de résistance.</li>
+    </ul>
 
-        <!-- Cuisson -->
-        <div class="protocol-section">
-          <h6 class="protocol-step-title">
-            <span class="protocol-badge">4</span> Cuisson
-          </h6>
-          <ul class="protocol-list">
-            <li><strong>Préchauffer</strong> le four à 400°C.</li>
-            <li><strong>Cuire</strong> les pizzas pendant 2 minutes ou jusqu'à ce qu'elles soient dorées.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    <ul class="collection with-header z-depth-1">
+      <li class="collection-header green lighten-5">
+        <h6 class="green-text text-darken-3">
+          <span class="new badge green" data-badge-caption="">3</span>
+          Boulage
+        </h6>
+      </li>
+      <li class="collection-item"><strong>Faire</strong> des boules de pâte de la taille désirée (250g pour une pizza de 30cm).</li>
+      <li class="collection-item"><strong>Laisser</strong> reposer les boules de pâte au frigo selon la durée de fermentation choisie.</li>
+    </ul>
+
+    <ul class="collection with-header z-depth-1">
+      <li class="collection-header green lighten-5">
+        <h6 class="green-text text-darken-3">
+          <span class="new badge green" data-badge-caption="">4</span>
+          Cuisson
+        </h6>
+      </li>
+      <li class="collection-item"><strong>Préchauffer</strong> le four à 400°C.</li>
+      <li class="collection-item"><strong>Cuire</strong> les pizzas pendant 2 minutes ou jusqu'à ce qu'elles soient dorées.</li>
+    </ul>
+  </div>
+</div>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -186,6 +213,10 @@
     
     const tabs = document.querySelectorAll('.tabs');
     M.Tabs.init(tabs);
+
+    const selects = document.querySelectorAll('select');
+    M.FormSelect.init(selects);
+
 
     // Fonction pour afficher un texte dans un élément
     const setText = (id, value) => {

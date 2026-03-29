@@ -29,7 +29,7 @@ def calculate_pizza_dough(
         raise ValueError("type de levure inconnu")
     
     duree_frigo = duree_totale - 4
-    yeast_per_kg = ratio_levure * 0.1 * duree_frigo
+    yeast_per_kg = ratio_levure *  48 / duree_frigo
     yeast = yeast_per_kg * flour / 1000
 
     return {
